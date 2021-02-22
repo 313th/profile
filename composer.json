@@ -31,4 +31,4 @@
         "post-package-install": "php artisan profile:register",
         "post-package-update": "php artisan profile:register"
     }
-},
+}
