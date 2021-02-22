@@ -1,0 +1,34 @@
+{
+    "name": "sahifedp/profile",
+    "description": "A profile manager for \"SahifeDP Laravel\" platform",
+    "require": {
+        "sahifedp/sdp-menu-manager": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mohsen Bagheri",
+            "email": "aquarius.native@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "sahifedp\\profile\\ProfileServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "sahifedp\\profile\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "scripts": {
+        "post-package-install": "php artisan profile:register",
+        "post-package-update": "php artisan profile:register"
+    }
+},
