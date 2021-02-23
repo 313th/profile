@@ -15,7 +15,7 @@ return[
                     "icon" => "circle-o",
                     "arrangement" => "1",
                     "permissions" => "profile.view|profile.create|profile.update|profile.delete",
-                    "route" => "admin.dashboard",
+                    "route" => "admin.profile.index",
                 ],
                 [
                     "name" => "profile.create",
@@ -23,7 +23,15 @@ return[
                     "icon" => "circle-o",
                     "arrangement" => "2",
                     "permissions" => "profile.create",
-                    "route" => "admin.dashboard",
+                    "route" => "admin.profile.create",
+                ],
+                [
+                    "name" => "profile.create",
+                    "title" => "کاربر جدید",
+                    "icon" => "circle-o",
+                    "arrangement" => "2",
+                    "permissions" => "profile.create",
+                    "route" => "admin.profile.create",
                 ],
             ],
         ]

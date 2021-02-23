@@ -4,8 +4,10 @@ namespace sahifedp\Profile\Console\Commands;
 
 use Illuminate\Console\Command;
 use sahifedp\MenuManager\MenuManager;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
-class RegisterMenus extends Command
+class Register extends Command
 {
     /**
      * The name and signature of the console command.
@@ -38,6 +40,16 @@ class RegisterMenus extends Command
      */
     public function handle()
     {
+        $permissions = config('profile.permissions');
+        $superAdmin = Role::where(['name'=>'Super Admin'])->first();
+        foreach ($permissions as $name=>$value){
+            $permission = Permission::firstOrNew([
+                "name" => $name,
+            ]);
+            $permission->title = $value['title'];
+            $permission->save();
+            $superAdmin->givePermissionTo($permission);
+        }
         $menu = config('profile.menu');
         foreach ($menu['groups'] as $group) {
             $group_model = MenuManager::newGroup($group["name"], $group["title"], $group["permissions"], $group["arrangement"], $group["icon"]);

@@ -16,7 +16,6 @@ class Login extends Component
      */
     public function __construct($theme=null)
     {
-        die(22);
         $this->theme = "default";
         if($theme != null)
             $this->theme = $theme;

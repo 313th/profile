@@ -4,8 +4,9 @@ namespace sahifedp\Profile;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use sahifedp\Profile\Console\Commands\RegisterMenus;
+use sahifedp\Profile\Console\Commands\Register;
 use sahifedp\Profile\Views\Components\Login\Login;
+use sahifedp\Profile\Views\Components\Actions\Actions;
 
 class ProfileServiceProvider extends ServiceProvider
 {
@@ -19,7 +20,10 @@ class ProfileServiceProvider extends ServiceProvider
             __DIR__.'/../config/menu.php',
             'profile.menu'
         );
-
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/permissions.php',
+            'profile.permissions'
+        );
     }
 
     /**
@@ -31,13 +35,16 @@ class ProfileServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                RegisterMenus::class
+                Register::class
             ]);
         }
 
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+
         $this->loadViewsFrom(__DIR__.'/Views', 'profile');
         $this->loadViewComponentsAs('profile', [
-            Login::class
+            Login::class,
+            Actions::class
         ]);
 
         Blade::componentNamespace('sahifedp\\Profile\\Views\\Components','profile');
