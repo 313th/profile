@@ -3,6 +3,7 @@
 namespace sahifedp\Profile;
 
 use Illuminate\Support\ServiceProvider;
+use sahifedp\Profile\Console\Commands\RegisterMenus;
 
 class ProfileServiceProvider extends ServiceProvider
 {

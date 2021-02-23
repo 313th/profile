@@ -1,6 +1,6 @@
 <?php
 
-namespace sahifedp\Profile;
+namespace sahifedp\Profile\Console\Commands;
 
 use Illuminate\Console\Command;
 use sahifedp\MenuManager\MenuManager;
