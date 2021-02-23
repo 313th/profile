@@ -2,8 +2,10 @@
 
 namespace sahifedp\Profile;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use sahifedp\Profile\Console\Commands\RegisterMenus;
+use sahifedp\Profile\Views\Components\Login;
 
 class ProfileServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,7 @@ class ProfileServiceProvider extends ServiceProvider
             __DIR__.'/../config/menu.php',
             'profile.menu'
         );
+
     }
 
     /**
@@ -32,8 +35,11 @@ class ProfileServiceProvider extends ServiceProvider
             ]);
         }
 
-//        $this->publishes([
-//            __DIR__.'/../config/menu.php' => config_path('profile.php')
-//        ], 'config');
+        $this->loadViewsFrom(__DIR__.'/Views', 'profile');
+        $this->loadViewComponentsAs('profile', [
+            Login::class
+        ]);
+
+        Blade::componentNamespace('sahifedp\\Profile\\Views\\Components','profile');
     }
 }
