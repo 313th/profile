@@ -38,16 +38,21 @@ class RegisterMenus extends Command
      */
     public function handle()
     {
-        $group = MenuManager::newGroup("Test.Name","Title","Perm1|Perm2",5,"circle");
-        if(!isset($group->id)){
-            $this->error('Creating group not successful');
-            return 0;
-        }
-        $this->line('Group created with ID: '.$group->id);
-        if(MenuManager::newItem($group->id,"Test.Name","Title","admin.dashboard","Perm1|Perm2",2,'mail')){
-            $this->info('All items created successfully');
-        }else{
-            $this->error('Creating one or more items not successful');
+        $menu = config('profile.menu');
+        foreach ($menu['groups'] as $group) {
+            $group_model = MenuManager::newGroup($group["name"], $group["title"], $group["permissions"], $group["arrangement"], $group["icon"]);
+            if (!isset($group_model->id)) {
+                $this->error('Creating group not successful');
+                return 0;
+            }
+            $this->line('Group created with ID: ' . $group_model->id);
+            foreach ($group['items'] as $item) {
+                if (MenuManager::newItem($group_model->id, $group["name"], $group["title"], $group["route"], $group["permissions"], $group["arrangement"], $group["icon"])) {
+                    $this->info('Item "'.$item['name'].'" created successfully');
+                } else {
+                    $this->error('Creating item "'.$item['name'].'" not successful');
+                }
+            }
         }
     }
 }

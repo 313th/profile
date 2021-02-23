@@ -1,0 +1,31 @@
+<?php
+
+return[
+    "groups" =>[
+        [
+            "name" => "profile",
+            "title" => "کاربران",
+            "icon" => "users",
+            "arrangement" => "2",
+            "permissions" => "profile.view|profile.create|profile.update|profile.delete",
+            "items" => [
+                [
+                    "name" => "profile.view|profile.create|profile.update|profile.delete",
+                    "title" => "همه کاربران",
+                    "icon" => "circle-o",
+                    "arrangement" => "1",
+                    "permissions" => "profile.view",
+                    "route" => "admin.dashboard",
+                ],
+                [
+                    "name" => "profile.create",
+                    "title" => "کاربر جدید",
+                    "icon" => "circle-o",
+                    "arrangement" => "2",
+                    "permissions" => "profile.create",
+                    "route" => "admin.dashboard",
+                ],
+            ],
+        ]
+    ]
+];
