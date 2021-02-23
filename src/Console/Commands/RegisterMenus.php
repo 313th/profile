@@ -47,7 +47,7 @@ class RegisterMenus extends Command
             }
             $this->line('Group created with ID: ' . $group_model->id);
             foreach ($group['items'] as $item) {
-                if (MenuManager::newItem($group_model->id, $group["name"], $group["title"], $group["route"], $group["permissions"], $group["arrangement"], $group["icon"])) {
+                if (MenuManager::newItem($group_model->id, $item["name"], $item["title"], $item["route"], $item["permissions"], $item["arrangement"], $item["icon"])) {
                     $this->info('Item "'.$item['name'].'" created successfully');
                 } else {
                     $this->error('Creating item "'.$item['name'].'" not successful');

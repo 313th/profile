@@ -10,11 +10,11 @@ return[
             "permissions" => "profile.view|profile.create|profile.update|profile.delete",
             "items" => [
                 [
-                    "name" => "profile.view|profile.create|profile.update|profile.delete",
+                    "name" => "profile.view",
                     "title" => "همه کاربران",
                     "icon" => "circle-o",
                     "arrangement" => "1",
-                    "permissions" => "profile.view",
+                    "permissions" => "profile.view|profile.create|profile.update|profile.delete",
                     "route" => "admin.dashboard",
                 ],
                 [
