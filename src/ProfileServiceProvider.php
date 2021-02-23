@@ -5,7 +5,7 @@ namespace sahifedp\Profile;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use sahifedp\Profile\Console\Commands\RegisterMenus;
-use sahifedp\Profile\Views\Components\Login;
+use sahifedp\Profile\Views\Components\Login\Login;
 
 class ProfileServiceProvider extends ServiceProvider
 {

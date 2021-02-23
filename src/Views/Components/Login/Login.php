@@ -1,7 +1,7 @@
 <?php
 
 
-namespace sahifedp\Profile\Views\Components;
+namespace sahifedp\Profile\Views\Components\Login;
 
 use \Illuminate\View\Component;
 use Psy\Util\Str;
