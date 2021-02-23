@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "sahifedp\\profile\\": "src/"
+            "sahifedp\\Profile\\": "src/"
         }
     },
     "minimum-stability": "dev",
