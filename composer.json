@@ -14,7 +14,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "sahifedp\\profile\\ProfileServiceProvider"
+                "sahifedp\\Profile\\ProfileServiceProvider"
             ],
             "aliases": {
 
