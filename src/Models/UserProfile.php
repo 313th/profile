@@ -1,6 +1,6 @@
 <?php
 
-namespace sahifedp\Profile\Models\;
+namespace sahifedp\Profile\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,14 +23,14 @@ class UserProfile extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
 
     /**
      * Indicates if the IDs are auto-incrementing.
-     * 
+     *
      * @var bool
      */
     public $incrementing = false;
@@ -45,6 +45,6 @@ class UserProfile extends Model
      */
     public function user()
     {
-        return $this->belongsTo('sahifedp\Profile\Models\\User', 'id');
+        return $this->belongsTo('sahifedp\Profile\Models\User', 'id');
     }
 }

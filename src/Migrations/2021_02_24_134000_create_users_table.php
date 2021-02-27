@@ -21,9 +21,9 @@ class CreateUsersTable extends Migration
         }
         Schema::table('users', function (Blueprint $table) {
             if (Schema::hasColumn('users', 'username')) {
-                $table->string('username')->change();
+                $table->string('username')->unique()->change();
             }else{
-                $table->string('username');
+                $table->string('username')->unique();
             }
             if (Schema::hasColumn('users', 'password')) {
                 $table->string('password')->change();
@@ -37,7 +37,13 @@ class CreateUsersTable extends Migration
                 $table->rememberToken();
             }
             if (Schema::hasColumn('users', 'email')) {
-                $table->string('email')->unique(false)->nullable()->change();
+                $table->string('email')->nullable()->change();
+                $sm = Schema::getConnection()->getDoctrineSchemaManager();
+                $indexesFound = $sm->listTableIndexes('users');
+
+                if(array_key_exists("users_email_unique", $indexesFound)) {
+                    $table->dropUnique('users_email_unique');
+                }
             }else{
                 $table->string('email')->nullable();
             }

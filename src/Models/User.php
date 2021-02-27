@@ -1,9 +1,14 @@
 <?php
 
-namespace sahifedp\Profile\Models\;
+namespace sahifedp\Profile\Models;
 
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 /**
  * @property integer $id
  * @property string $name
@@ -20,11 +25,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $last_login
  * @property UserProfile $userProfile
  */
-class User extends Model
+
+class User extends Authenticatable
 {
+    use HasFactory, Notifiable, HasRoles, CanResetPassword;
+
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -39,6 +47,6 @@ class User extends Model
      */
     public function userProfile()
     {
-        return $this->hasOne('sahifedp\Profile\Models\\UserProfile', 'id');
+        return $this->hasOne('sahifedp\Profile\Models\UserProfile', 'id');
     }
 }

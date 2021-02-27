@@ -13,15 +13,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class RegisterController extends Controller {
+class ProfileController extends Controller {
     /**
      * Display the registration view.
      *
      * @return Theme
      */
-    public function create()
+    public function edit()
     {
-        return Theme::view('profile.register');
+        return Theme::view('profile.edit');
     }
 
     /**
@@ -32,7 +32,7 @@ class RegisterController extends Controller {
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function update(Request $request)
     {
         $request->validate([
             'display_name' => 'required|string|max:255|min:4',

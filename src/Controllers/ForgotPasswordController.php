@@ -4,13 +4,10 @@
 namespace sahifedp\Profile\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\Http\Requests\Auth\LoginRequest;
 use Facuz\Theme\Facades\Theme;
 use Illuminate\Http\Request;
-use sahifedp\Profile\Profile;
 
-class LoginController extends Controller {
+class ForgotPasswordController extends Controller {
 
     /**
      * Display the login view.
@@ -19,16 +16,12 @@ class LoginController extends Controller {
      */
     public function create()
     {
-        return Theme::view('profile.login');
+        return Theme::view('profile.forgot-password');
     }
 
-    public function store(LoginRequest $request){
-        $request->authenticate();
-        $request->session()->regenerate();
-        return redirect()->intended(route('dashboard'));
-    }
-
-    public function destroy(Request $request){
-        return Profile::logout($request);
+    public function store(Request $request){
+        //TODO: Check type of recovery(Mobile|Email) and call correct helper
+        //TODO: Redirect to correct route
+        return redirect()->intended(route('login'));
     }
 }

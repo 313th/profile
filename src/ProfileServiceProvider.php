@@ -40,7 +40,7 @@ class ProfileServiceProvider extends ServiceProvider
         }
 
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-
+        $this->loadMigrationsFrom(__DIR__.'/Migrations');
         $this->loadViewsFrom(__DIR__.'/Views', 'profile');
         $this->loadViewComponentsAs('profile', [
             Login::class,
