@@ -4,13 +4,19 @@
 namespace sahifedp\Profile\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Facuz\Theme\Facades\Theme;
 use Illuminate\Http\Request;
 use sahifedp\Profile\Profile;
 
 class DefaultController extends Controller {
-    public function login(){
-
+    public function login(Request $request){
+        if($request->isMethod('get')){
+            return Theme::view('profile.login');
+        }
+        $request->authenticate();
+        $request->session()->regenerate();
+        return redirect()->intended(route('dashboard'));
     }
 
     public function logout(Request $request){
@@ -25,11 +31,11 @@ class DefaultController extends Controller {
 
     }
 
-    public function editProfile(){
+    public function edit(){
 
     }
 
-    public function storeProfile(){
+    public function store(){
 
     }
 }
