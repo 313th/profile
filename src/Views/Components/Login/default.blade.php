@@ -10,7 +10,7 @@
             <form action="{{ route('admin.login') }}" method="post">
                 @csrf
                 <div class="input-group mb-3">
-                    <input type="email" name="email" class="form-control" placeholder="ایمیل" required autofocus>
+                    <input type="text" name="username" class="form-control" placeholder="نام کاربری" required autofocus>
                     <div class="input-group-append">
                         <span class="fa fa-envelope input-group-text"></span>
                     </div>

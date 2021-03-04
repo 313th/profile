@@ -23,52 +23,52 @@ class CreateUserProfilesTable extends Migration
             if (!Schema::hasColumn('user_profiles', 'name')) {
                 $table->string('name');
             }else{
-                $table->string('name');
+                $table->string('name')->change();
             }
             if (!Schema::hasColumn('user_profiles', 'family')) {
                 $table->string('family');
             }else{
-                $table->string('family');
+                $table->string('family')->change();
             }
             if (!Schema::hasColumn('user_profiles', 'nation_code')) {
                 $table->string('nation_code')->nullable();
             }else{
-                $table->string('nation_code')->nullable();
+                $table->string('nation_code')->nullable()->change();
             }
             if (!Schema::hasColumn('user_profiles', 'birth_date')) {
                 $table->timestamp('birth_date')->nullable();
             }else{
-                $table->timestamp('birth_date')->nullable();
+                $table->timestamp('birth_date')->nullable()->change();
             }
             if (!Schema::hasColumn('user_profiles', 'address')) {
                 $table->text('address')->nullable();
             }else{
-                $table->text('address')->nullable();
+                $table->text('address')->nullable()->change();
             }
-            if (!Schema::hasColumn('user_profiles', 'username')) {
+            if (!Schema::hasColumn('user_profiles', 'postal_code')) {
                 $table->string('postal_code')->nullable();
             }else{
-                $table->string('postal_code')->nullable();
+                $table->string('postal_code')->nullable()->change();
             }
-            if (!Schema::hasColumn('user_profiles', 'username')) {
+            if (!Schema::hasColumn('user_profiles', 'tel')) {
                 $table->string('tel')->nullable();
             }else{
-                $table->string('tel')->nullable();
+                $table->string('tel')->nullable()->change();
             }
             if (!Schema::hasColumn('user_profiles', 'image')) {
                 $table->string('image')->nullable();
             }else{
-                $table->string('image')->nullable();
+                $table->string('image')->nullable()->change();
             }
             if (!Schema::hasColumn('user_profiles', 'meta')) {
                 $table->text('meta')->nullable();
             }else{
-                $table->text('meta')->nullable();
+                $table->text('meta')->nullable()->change();
             }
             $sm = Schema::getConnection()->getDoctrineSchemaManager();
             $indexesFound = $sm->listTableIndexes('user_profiles');
 
-            if(!array_key_exists("users_email_unique", $indexesFound)) {
+            if(!array_key_exists("user_profiles_id_foreign", $indexesFound)) {
                 $table->foreign('id')
                     ->references('id')
                     ->on('users')

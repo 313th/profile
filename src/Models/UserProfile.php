@@ -38,8 +38,16 @@ class UserProfile extends Model
     /**
      * @var array
      */
-    protected $fillable = ['created_at', 'updated_at', 'name', 'family', 'nation_code', 'birth_date', 'address', 'postal_code', 'tel', 'image', 'meta'];
+    protected $fillable = ['id','created_at', 'updated_at', 'name', 'family', 'nation_code', 'birth_date', 'address', 'postal_code', 'tel', 'image', 'meta'];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'birth_date' => 'datetime:Y-m-d',
+    ];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

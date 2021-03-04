@@ -8,8 +8,8 @@ use Facuz\Theme\Facades\Theme;
 |--------------------------------------------------------------------------
 */
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    return Theme::view(['view'=>'tests.dashboard','layout'=>'dashboard']);
+})->middleware(['web','auth'])->name('dashboard');
 
 /*
 |--------------------------------------------------------------------------
@@ -86,15 +86,38 @@ Route::post('/register',[sahifedp\Profile\Controllers\RegisterController::class,
 | Profile Functions Routes
 |--------------------------------------------------------------------------
 */
-//Route::prefix('profile')
-//    ->name('profile.')
-//    ->middleware(['web'])
-//    ->group(function () {
-//        Route::get('/edit/{user_id}',[sahifedp\Profile\Controllers\ProfileController::class,'edit'])
-//            ->name('edit');
-//        Route::post('/update/{user_id}',[sahifedp\Profile\Controllers\ProfileController::class,'update'])
-//            ->name('store');
-//    });
+Route::prefix('profile')
+    ->name('profile.')
+    ->middleware(['web','auth', 'theme:' . env('APP_THEME').',dashboard'])
+    ->group(function () {
+        Route::get('/edit',[sahifedp\Profile\Controllers\ProfileController::class,'edit'])
+            ->name('edit');
+        Route::post('/update',[sahifedp\Profile\Controllers\ProfileController::class,'update'])
+            ->name('update');
+        /*--Edit Legal Information--*/
+        Route::get('/legal',[sahifedp\Profile\Controllers\LegalController::class,'edit'])
+            ->name('legal.edit');
+        Route::post('/legal/store',[sahifedp\Profile\Controllers\LegalController::class,'update'])
+            ->name('legal.update');
+        /*--Edit Father Information--*/
+        Route::get('/father',[sahifedp\Profile\Controllers\FatherProfileController::class,'edit'])
+            ->name('father.edit');
+        Route::post('/father/store',[sahifedp\Profile\Controllers\FatherProfileController::class,'update'])
+            ->name('father.update');
+        /*--Edit Mother Information--*/
+        Route::get('/mother',[sahifedp\Profile\Controllers\MotherProfileController::class,'edit'])
+            ->name('mother.edit');
+        Route::post('/mother/store',[sahifedp\Profile\Controllers\MotherProfileController::class,'update'])
+            ->name('mother.update');
+        /*--Edit Social Information--*/
+        Route::get('/social',[sahifedp\Profile\Controllers\SocialProfileController::class,'edit'])
+            ->name('social.edit');
+        Route::post('/social/store',[sahifedp\Profile\Controllers\SocialProfileController::class,'update'])
+            ->name('social.update');
+        /*--Pre Register Final Step--*/
+        Route::get('/tracking-code',[sahifedp\Profile\Controllers\RegisterController::class,'trackingCode'])
+            ->name('register.finish');
+    });
 /*
 |--------------------------------------------------------------------------
 | Admin Routes

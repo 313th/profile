@@ -5,7 +5,7 @@ namespace sahifedp\Profile\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Http\Requests\Auth\LoginRequest;
+use sahifedp\Requests\Auth\LoginRequest;
 use Facuz\Theme\Facades\Theme;
 use Illuminate\Http\Request;
 use sahifedp\Profile\Profile;

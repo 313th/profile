@@ -5,7 +5,9 @@ namespace sahifedp\Profile\Controllers;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use sahifedp\Profile\Models\User;
 use App\Providers\RouteServiceProvider;
 use Facuz\Theme\Facades\Theme;
 use Illuminate\Auth\Events\Registered;
@@ -21,7 +23,7 @@ class ProfileController extends Controller {
      */
     public function edit()
     {
-        return Theme::view('profile.edit');
+        return Theme::view('profile.edit',['user'=>Auth::user()]);
     }
 
     /**
@@ -34,25 +36,41 @@ class ProfileController extends Controller {
      */
     public function update(Request $request)
     {
-        $request->validate([
-            'display_name' => 'required|string|max:255|min:4',
-            'username' => 'required|string|min:6|unique:users',
-            'password' => 'required|string|confirmed|min:8',
-            'email' => 'string|email|max:255|required_without:mobile',
-            'mobile' => 'alpha_num|email|size:11|starts_with:09|required_without:email',
-
+        Validator::make($request->all(),[
+            'nation_code' => [
+                'required','alpha_num','min:10',
+                Rule::unique('user_profiles')->ignore(Auth::id())
+            ]
         ]);
+        $request->validate([
+            'name' => 'required|string|max:255|min:4',
+            'family' => 'required|string|max:255|min:4',
+//            'birth_date' => 'string|min:8|max:10',
+            'email' =>  'email',
+            'mobile' =>  'required|alpha_num|starts_with:09|size:11',
+            'address' =>  'required|string|min:10',
+            'postal_code' =>  'required|alpha_num|size:10',
+            'tel' =>  'required|string',
+        ]);
+//        $shamsi = explode('/',$request->birth_date);
+//        $shamsiYear = $shamsi[2];
+//        $shamsiMonth = $shamsi[1];
+//        $shamsiDay = $shamsi[0];
 
-        Auth::login($user = User::create([
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-            'display_name' => $request->display_name,
-            'email' => $request->email,
-            'mobile' => $request->mobile,
-        ]));
-
-        event(new Registered($user));
-
-        return redirect(RouteServiceProvider::HOME);
+        $user = Auth::user();
+        $user->email = $request->email;
+        $user->username = $request->nation_code;
+        $user->display_name = $request->name.' '.$request->family;
+        $user->mobile = $request->mobile;
+        $user->profile->name = $request->name;
+        $user->profile->family = $request->family;
+        $user->profile->nation_code = $request->nation_code;
+//        $user->profile->birth_date = jdf::jalali_to_gregorian($shamsiYear,$shamsiMonth,$shamsiDay,'-').' 00:00:00';
+        $user->profile->address = $request->address;
+        $user->profile->postal_code = $request->postal_code;
+        $user->profile->tel = $request->tel;
+        if($user->save())
+            $user->profile->save();
+        return redirect(route('profile.legal.edit'));
     }
 }

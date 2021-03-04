@@ -19,12 +19,12 @@ class DefaultController extends Controller {
 
     public function login(Request $request){
         if(Auth::check()){
-            return redirect()->intended();
+            return redirect()->intended(route('admin.dashboard'));
         }
         if($request->isMethod('get'))
             return Theme::view('login');
 
-        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password],isset($request->remember))){
+        if(Auth::attempt(['username'=>$request->username,'password'=>$request->password],isset($request->remember))){
             $request->session()->regenerate();
             return redirect()->intended();
         }
