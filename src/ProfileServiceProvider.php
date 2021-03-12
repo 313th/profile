@@ -32,6 +32,10 @@ class ProfileServiceProvider extends ServiceProvider
             __DIR__.'/../config/permissions.php',
             'profile.permissions'
         );
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/steps.php',
+            'profile.steps'
+        );
     }
 
     /**
@@ -49,6 +53,8 @@ class ProfileServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->loadMigrationsFrom(__DIR__.'/Migrations');
+        $this->loadTranslationsFrom(__DIR__ . '../lang/fa','profile');
+        $this->publishes([__DIR__ . '../lang/fa'=>'resources/lang']);
         $this->loadViewsFrom(__DIR__.'/Views', 'profile');
         $this->loadViewComponentsAs('profile', [
             Login::class,

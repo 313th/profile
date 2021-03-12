@@ -14,7 +14,5 @@ class Profile {
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
-        return redirect('/');
     }
 }

@@ -62,10 +62,15 @@ class CreateUsersTable extends Migration
             }else{
                 $table->string('mobile_verified_at')->nullable();
             }
-            if (Schema::hasColumn('users', 'last_login')) {
-                $table->string('last_login')->nullable()->change();
+            if (Schema::hasColumn('users', 'status')) {
+                $table->unsignedTinyInteger('last_login')->default(0)->change();
             }else{
-                $table->string('last_login')->nullable();
+                $table->unsignedTinyInteger('last_login')->default(0)->nullable();
+            }
+            if (Schema::hasColumn('users', 'last_login')) {
+                $table->timestamp('last_login')->nullable()->change();
+            }else{
+                $table->timestamp('last_login')->nullable();
             }
         });
     }

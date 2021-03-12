@@ -9,7 +9,7 @@
                 </div>
                 <ul class="account-settings">
                     <li>
-                        <a href="29-YourAccount-AccountSettings.html">
+                        <a href="#">
                             <svg class="olymp-menu-icon">
                                 <use xlink:href="@asset('svg-icons/sprites/icons.svg#olymp-menu-icon')"></use>
                             </svg>
@@ -17,7 +17,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="36-FavPage-SettingsAndCreatePopup.html">
+                        <a href="#">
                             <svg class="olymp-star-icon left-menu-icon" data-toggle="tooltip" data-placement="right" data-original-title="FAV PAGE">
                                 <use xlink:href="@asset('svg-icons/sprites/icons.svg#olymp-star-icon')"></use>
                             </svg>
@@ -26,7 +26,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ route('logout') }}">
                             <svg class="olymp-logout-icon">
                                 <use xlink:href="@asset('svg-icons/sprites/icons.svg#olymp-logout-icon')"></use>
                             </svg>
@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    <a href="02-ProfilePage.html" class="author-name fn">
+    <a href="#" class="author-name fn">
         <div class="author-title">
             {{ \Illuminate\Support\Facades\Auth::user()->display_name }}<svg class="olymp-dropdown-arrow-icon">
                 <use xlink:href="@asset('svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon')"></use>

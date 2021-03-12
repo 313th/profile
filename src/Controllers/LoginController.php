@@ -5,7 +5,7 @@ namespace sahifedp\Profile\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use sahifedp\Requests\Auth\LoginRequest;
+use sahifedp\Profile\Requests\Auth\LoginRequest;
 use Facuz\Theme\Facades\Theme;
 use Illuminate\Http\Request;
 use sahifedp\Profile\Profile;
@@ -19,7 +19,7 @@ class LoginController extends Controller {
      */
     public function create()
     {
-        return Theme::view('profile.login');
+        return Theme::view(['view'=>'profile.login','layout'=>'simple']);
     }
 
     public function store(LoginRequest $request){
@@ -29,6 +29,7 @@ class LoginController extends Controller {
     }
 
     public function destroy(Request $request){
-        return Profile::logout($request);
+        Profile::logout($request);
+        return redirect(route('login'));
     }
 }

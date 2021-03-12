@@ -36,9 +36,9 @@ class CreateUserProfilesTable extends Migration
                 $table->string('nation_code')->nullable()->change();
             }
             if (!Schema::hasColumn('user_profiles', 'birth_date')) {
-                $table->timestamp('birth_date')->nullable();
+                $table->date('birth_date')->nullable();
             }else{
-                $table->timestamp('birth_date')->nullable()->change();
+                $table->date('birth_date')->nullable()->change();
             }
             if (!Schema::hasColumn('user_profiles', 'address')) {
                 $table->text('address')->nullable();

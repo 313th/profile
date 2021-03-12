@@ -10,6 +10,7 @@ use DateTimeZone;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use sahifedp\Helpers\Rules\Digit;
 use sahifedp\Profile\Models\User;
 use App\Providers\RouteServiceProvider;
 use Facuz\Theme\Facades\Theme;
@@ -31,7 +32,9 @@ class FatherProfileController extends Controller {
     public function edit()
     {
         //TODO: Check role is "Student"
-        return Theme::view('profile.parent.edit',['user'=>Auth::user(),'key'=>'father','title'=>'پدر']);
+        $minDate = "null";
+        $maxDate = "null";
+        return Theme::view('profile.parent.edit',['user'=>Auth::user(),'key'=>'father','title'=>'پدر','minDate'=>$minDate,'maxDate'=>$maxDate]);
     }
 
     /**
@@ -46,14 +49,15 @@ class FatherProfileController extends Controller {
     {
         Validator::make($request->all(),[
             'nation_code' => [
-                'required','alpha_num','min:10',
+                'required','min:10',
+                new Digit(),
                 Rule::unique('user_profiles')->ignore(@ Auth::user()->father->id)
             ]
-        ]);
+        ])->validate();
         $request->validate([
 //            'nation_code' => 'required|alpha_num|min:10|unique:user_profiles',
-            'name' => 'required|string|max:255|min:4',
-            'family' => 'required|string|max:255|min:4',
+            'name' => 'required|string|max:255|min:2',
+            'family' => 'required|string|max:255|min:2',
             'birth_date' => 'required|int',
             'email' =>  'email|nullable',
             'mobile' =>  'required|alpha_num|starts_with:09|size:11',

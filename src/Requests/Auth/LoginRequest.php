@@ -1,6 +1,6 @@
 <?php
 
-namespace sahifedp\Requests\Auth;
+namespace sahifedp\Profile\Requests\Auth;
 
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
@@ -29,7 +29,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|string|alpha_numeric',
+            'username' => 'required|string|alpha_num',
             'password' => 'required|string',
         ];
     }

@@ -8,7 +8,8 @@ use Facuz\Theme\Facades\Theme;
 |--------------------------------------------------------------------------
 */
 Route::get('/dashboard', function () {
-    return Theme::view(['view'=>'tests.dashboard','layout'=>'dashboard']);
+    dd(config('profile.steps.prereg'));
+    return Theme::view(['view'=>'profile.dashboard','layout'=>'dashboard']);
 })->middleware(['web','auth'])->name('dashboard');
 
 /*

@@ -6,6 +6,11 @@ namespace sahifedp\Profile\Controllers;
 use DateTime;
 use DateTimeZone;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use sahifedp\Helpers\Helpers;
+use sahifedp\Helpers\Rules\Digit;
+use sahifedp\Helpers\Rules\Nationcode;
 use sahifedp\Profile\Models\User;
 use Facuz\Theme\Facades\Theme;
 use Illuminate\Auth\Events\Registered;
@@ -14,7 +19,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use sahifedp\Profile\Models\UserProfile;
 use sahifedp\Profile\Profile;
-
 class RegisterController extends Controller {
     /**
      * Display the registration view.
@@ -36,17 +40,27 @@ class RegisterController extends Controller {
      */
     public function store(Request $request)
     {
+
+        Validator::make($request->all(),[
+            'username' => [
+                new Digit(),
+                'required',
+                'min:10',
+                'unique:users',
+            ]
+        ])->validate();
         $request->validate([
-            'name' => 'required|string|max:255|min:4',
-            'family' => 'required|string|max:255|min:4',
-            'username' => 'required|alpha_num|min:10|unique:users',
+            'name' => 'required|string|max:255|min:2',
+            'family' => 'required|string|max:255|min:2',
+//            'username' => 'required|unique:users|min:10|unique:users',
             'birth_date' => 'required|int',
+            'birth_date_show' => 'required',
         ]);
         $date = new DateTime();
         $date->setTimestamp($request->birth_date/1000);
         $date->setTimezone(new DateTimeZone('Asia/Tehran'));
         $user = User::create([
-            'username' => $request->username,
+            'username' => Helpers::toLatin($request->username),
             'password' => Hash::make($request->username),
             'display_name' => $request->name.' '.$request->family,
         ]);
@@ -54,7 +68,7 @@ class RegisterController extends Controller {
             'id' => $user->id,
             'name' => $request->name,
             'family' => $request->family,
-            'nation_code' => $request->username,
+            'nation_code' => Helpers::toLatin($request->username),
             'birth_date' => $date->format('Y-m-d')
         ]);
         $user->assignRole('Student');

@@ -26,7 +26,7 @@ class DefaultController extends Controller {
 
         if(Auth::attempt(['username'=>$request->username,'password'=>$request->password],isset($request->remember))){
             $request->session()->regenerate();
-            return redirect()->intended();
+            return redirect()->intended(route('admin.dashboard'));
         }
         return redirect()->refresh()->with('error',['message'=>'ERROR']);
     }
