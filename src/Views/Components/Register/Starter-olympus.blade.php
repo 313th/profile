@@ -1,4 +1,3 @@
-<div class="title h4">{{$message}}</div>
 <form action="{{ route('register') }}" method="post" class="content">
     @csrf
     <div class="row">
